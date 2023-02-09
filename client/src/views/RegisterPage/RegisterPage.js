@@ -1,6 +1,5 @@
-import React, {useState} from 'react'
+import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
-import "./RegisterPage.css";
 import {Form, Input, Button} from 'antd';
 
 function RegisterPage() {

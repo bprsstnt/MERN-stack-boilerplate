@@ -1,8 +1,6 @@
-import React, {useState} from 'react'
+import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
 import { Form, Input, Button } from 'antd';
-import "./LoginPage.css";
-
 
 function LoginPage() {
   const onFinishHandler = (e) => {
