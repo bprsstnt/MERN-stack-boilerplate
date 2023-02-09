@@ -1,24 +1,13 @@
 import React, {useState} from 'react'
 import NavBar from '../../components/NavBar/NavBar'
-import { Button } from 'antd';
+import { Form, Input, Button } from 'antd';
 import "./LoginPage.css";
 
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onChangeEmailHandler = (e) => {
-    setEmail(e.currentTarget.value);
-  }
-
-  const onChangePasswordHandler = (e) => {
-    setPassword(e.currentTarget.value);
-  }
-
-  const onSubmitHandler = (e) => {
+  const onFinishHandler = (e) => {
     // @TODO
-    console.log("on submit handler");
+    console.debug("on submit handler. ", e);
   }
 
   return (
@@ -26,17 +15,23 @@ function LoginPage() {
       <NavBar />
       
       <div className={'wrapper'}>
-        <form className={'form'} onSubmit={onSubmitHandler}>
-          <label>Email</label>
-          <input type="email" value={email} onChange={onChangeEmailHandler} />
-          
-          <label>Password</label>
-          <input type="password" value={password} onChange={onChangePasswordHandler} />
+        <Form name="login" className={'form'} onFinish={onFinishHandler}>
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[{ required: false, message: 'Please input your email.' }]}>
+            <Input />
+          </Form.Item>
 
-          <br />
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[{ required: false, message: 'Please input your password.' }]}>
+            <Input />
+          </Form.Item>
 
-          <Button>Login</Button>
-        </form>
+          <Button type="default" htmlType="submit">Login</Button>
+        </Form>
       </div>
     </div>
   )

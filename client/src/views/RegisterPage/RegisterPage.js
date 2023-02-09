@@ -1,28 +1,13 @@
 import React, {useState} from 'react'
 import NavBar from '../../components/NavBar/NavBar'
 import "./RegisterPage.css";
-import {Button} from 'antd';
+import {Form, Input, Button} from 'antd';
 
 function RegisterPage() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const onChangeNameHandler = (e) => {
-    setName(e.currentTarget.value);
-  }
-
-  const onChangeEmailHandler = (e) => {
-    setEmail(e.currentTarget.value);
-  }
-
-  const onChangePasswordHandler = (e) => {
-    setPassword(e.currentTarget.value);
-  }
-
-  const onChangeConfirmPasswordHandler = (e) => {
-    setConfirmPassword(e.currentTarget.value);
+  const onFinishHandler = (e) => {
+    // @TODO
+    console.debug("on submit handler. ", e);
   }
 
   return (
@@ -30,24 +15,37 @@ function RegisterPage() {
       <NavBar />
 
       <div className={'wrapper'}>
-        <form className={'form'}>
-          <label>Name</label>
-          <input type="string" value={name} onChange={onChangeNameHandler} />
+        <Form name="register" className={'form'} onFinish={onFinishHandler}>
+            <Form.Item
+              label="Name"
+              name="name"
+              rules={[{ required: true, message: 'Please input your name.' }]}>
+              <Input />
+            </Form.Item>
 
-          <label>Email</label>
-          <input type="email" value={email} onChange={onChangeEmailHandler} />
-          
-          <label>Password</label>
-          <input type="password" value={password} onChange={onChangePasswordHandler} />
+            <Form.Item
+              label="Email"
+              name="email"
+              rules={[{ required: true, message: 'Please input your email.' }]}>
+              <Input />
+            </Form.Item>
 
-          <label>Confirm Password</label>
-          <input type="password" value={confirmPassword} onChange={onChangeConfirmPasswordHandler} />
+            <Form.Item
+              label="Password"
+              name="password"
+              rules={[{ required: true, message: 'Please input your password.' }]}>
+              <Input />
+            </Form.Item>
 
-          <br />
+            <Form.Item
+              label="Confirm Password"
+              name="confirmPassword"
+              rules={[{ required: true, message: 'Please input your password.' }]}>
+              <Input />
+            </Form.Item>
 
-          <Button>Register</Button>
-
-        </form>
+            <Button type="default" htmlType="submit">Register</Button>
+          </Form>
       </div>
     </div>
   )
