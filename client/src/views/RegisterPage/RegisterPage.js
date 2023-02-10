@@ -6,7 +6,21 @@ function RegisterPage() {
 
   const onFinishHandler = (e) => {
     // @TODO
-    console.debug("on submit handler. ", e);
+    if (e.password !== e.confirmPassword) {
+      return alert("Password does not match");
+    }
+
+    let body = {
+      name: e.name,
+      email: e.email,
+      password: e.password,
+    };
+
+    // axios and send request to /api/users/register
+    // or 
+    // use Redux and call axios from dispatch
+
+    console.debug("on submit handler. ", body);
   }
 
   return (
@@ -19,28 +33,28 @@ function RegisterPage() {
               label="Name"
               name="name"
               rules={[{ required: true, message: 'Please input your name.' }]}>
-              <Input />
+              <Input type="string" autoComplete='true'/>
             </Form.Item>
 
             <Form.Item
               label="Email"
               name="email"
               rules={[{ required: true, message: 'Please input your email.' }]}>
-              <Input />
+              <Input type="email" autoComplete='true'/>
             </Form.Item>
 
             <Form.Item
               label="Password"
               name="password"
               rules={[{ required: true, message: 'Please input your password.' }]}>
-              <Input />
+              <Input type="password" autoComplete='false'/>
             </Form.Item>
 
             <Form.Item
               label="Confirm Password"
               name="confirmPassword"
               rules={[{ required: true, message: 'Please input your password.' }]}>
-              <Input />
+              <Input type="password" autoComplete='false'/>
             </Form.Item>
 
             <Button type="default" htmlType="submit">Register</Button>

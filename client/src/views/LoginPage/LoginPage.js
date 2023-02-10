@@ -5,7 +5,11 @@ import { Form, Input, Button } from 'antd';
 function LoginPage() {
   const onFinishHandler = (e) => {
     // @TODO
-    console.debug("on submit handler. ", e);
+    let body = {
+      email: e.email,
+      password: e.password,
+    };
+    console.debug("on submit handler. ", body);
   }
 
   return (
@@ -18,14 +22,14 @@ function LoginPage() {
             label="Email"
             name="email"
             rules={[{ required: false, message: 'Please input your email.' }]}>
-            <Input />
+            <Input type="string" autoComplete='true' />
           </Form.Item>
 
           <Form.Item
             label="Password"
             name="password"
             rules={[{ required: false, message: 'Please input your password.' }]}>
-            <Input />
+            <Input type="password" autoComplete='false'/>
           </Form.Item>
 
           <Button type="default" htmlType="submit">Login</Button>
