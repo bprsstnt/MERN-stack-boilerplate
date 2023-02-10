@@ -1,11 +1,13 @@
 import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
 import {Form, Input, Button} from 'antd';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function RegisterPage() {
+  const navigate = useNavigate();
 
   const onFinishHandler = (e) => {
-    // @TODO
     if (e.password !== e.confirmPassword) {
       return alert("Password does not match");
     }
@@ -16,11 +18,17 @@ function RegisterPage() {
       password: e.password,
     };
 
-    // axios and send request to /api/users/register
-    // or 
-    // use Redux and call axios from dispatch
-
-    console.debug("on submit handler. ", body);
+    axios.post('api/users/register', body)
+      .then((res) => {
+        if(res.data.success) {
+          navigate("/login");
+        } else {
+          alert("Faild to register")
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      })
   }
 
   return (

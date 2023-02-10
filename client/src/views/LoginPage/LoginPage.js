@@ -1,15 +1,29 @@
 import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
+import axios from 'axios';
 import { Form, Input, Button } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   const onFinishHandler = (e) => {
-    // @TODO
     let body = {
       email: e.email,
       password: e.password,
     };
-    console.debug("on submit handler. ", body);
+    
+    axios.post('api/users/login', body)
+    .then((res) => {
+      if(res.data.loginSuccess) {
+        navigate("/");
+      } else {
+        return alert(res.data.message);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    })
   }
 
   return (

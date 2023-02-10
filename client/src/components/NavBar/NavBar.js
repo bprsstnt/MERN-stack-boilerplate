@@ -31,7 +31,7 @@ const NavBar = () => {
     }
 
     setCurrent(slug);
-  }, [current])
+  }, [current, location.pathname])
   
   const onClick = (e) => {
     setCurrent(e.key);
