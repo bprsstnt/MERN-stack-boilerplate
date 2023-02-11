@@ -1,10 +1,13 @@
 import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
 import {Form, Input, Button} from 'antd';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../../_actions/userActions';
+import Auth from '../../hoc/auth';
 
 function RegisterPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onFinishHandler = (e) => {
@@ -18,17 +21,15 @@ function RegisterPage() {
       password: e.password,
     };
 
-    axios.post('api/users/register', body)
-      .then((res) => {
-        if(res.data.success) {
-          navigate("/login");
-        } else {
-          alert("Faild to register")
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      })
+    dispatch(registerUser(body))
+    .payload
+    .then(res => {
+      if(res.success) {
+        navigate('/login');
+      } else {
+        alert("register failed: ", res);
+      }
+    })
   }
 
   return (
@@ -72,4 +73,4 @@ function RegisterPage() {
   )
 }
 
-export default RegisterPage
+export default Auth(RegisterPage, false);

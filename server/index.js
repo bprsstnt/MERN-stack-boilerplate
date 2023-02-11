@@ -78,6 +78,16 @@ app.get('/api/users/logout', auth, (req, res) => {
     })
 })
 
+app.get('/api/users/auth', auth, (req, res) => {
+    res.status(200).json({
+        _id: req.user._id,
+        isAdmin: req.user.admin,
+        isAuth: true,
+        name: req.user.name,
+        email: req.user.email,
+    })
+})
+
 app.listen(port, () => {
     console.log(`App is listening at port ${port}`);
 })

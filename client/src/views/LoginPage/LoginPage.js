@@ -1,10 +1,13 @@
 import React from 'react'
 import NavBar from '../../components/NavBar/NavBar'
-import axios from 'axios';
 import { Form, Input, Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../_actions/userActions';
+import Auth from '../../hoc/auth';
 
 function LoginPage() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onFinishHandler = (e) => {
@@ -12,17 +15,15 @@ function LoginPage() {
       email: e.email,
       password: e.password,
     };
-    
-    axios.post('api/users/login', body)
-    .then((res) => {
-      if(res.data.loginSuccess) {
+
+    dispatch(loginUser(body))
+    .payload
+    .then(res => {
+      if(res.loginSuccess) {
         navigate("/");
       } else {
-        return alert(res.data.message);
+        console.error("Login faield: ", res);
       }
-    })
-    .catch((err) => {
-      console.error(err);
     })
   }
 
@@ -53,4 +54,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
+export default Auth(LoginPage, false);

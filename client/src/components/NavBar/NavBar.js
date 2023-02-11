@@ -2,8 +2,10 @@ import React, {useState, useEffect} from 'react'
 import { LoginOutlined, SmileOutlined } from '@ant-design/icons';
 import { Menu } from 'antd';
 import { useLocation } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { authUser } from '../../_actions/userActions';
 
-const items = [
+const inactiveUserMenu = [
   {
     label: (<a href={`/`}>Home</a>),
     key: 'home',
@@ -20,9 +22,18 @@ const items = [
   }
 ];
 
+const activeUserMenu = [
+  {
+    label: (<a href={`/`}>Home</a>),
+    key: 'home',
+  },
+];
+
 const NavBar = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const [current, setCurrent] = useState('');
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     let slug = location.pathname.split('/')[1];
@@ -31,14 +42,29 @@ const NavBar = () => {
     }
 
     setCurrent(slug);
-  }, [current, location.pathname])
+
+    dispatch(authUser())
+    .payload 
+    .then(res => {
+      if(!res.error) {
+        setIsActive(true);
+      }
+    })
+  }, [current, location.pathname, dispatch])
   
   const onClick = (e) => {
     setCurrent(e.key);
   }
 
   return (
-    <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+    <>
+      {!isActive && (
+        <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={inactiveUserMenu} />
+      )}
+      {isActive && (
+        <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={activeUserMenu} />
+      )}
+    </>
   )
 }
 
