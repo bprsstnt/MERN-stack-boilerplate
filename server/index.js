@@ -20,10 +20,6 @@ mongoose.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true
 });
 
-app.get('/', (req, res) => {
-    res.send('Hello, World!');
-})
-
 app.post('/api/users/login', (req, res) => {
     User.findOne({email: req.body.email}, (err, user) => {
         if(!user) {
@@ -56,7 +52,7 @@ app.post('/api/users/login', (req, res) => {
 })
 
 app.post('/api/users/register', (req, res) => {
-    const user = new User(req.body); // @TODO: body-parser
+    const user = new User(req.body); 
 
     user.save((err, userInfo) => {
         if(err) return res.json({success: false, err});
