@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const cors  = require('cors');
 const { auth } = require("./middleware/auth");
 const { User } = require('./models/user');
-
+require('dotenv').config();
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -15,7 +15,7 @@ app.use(cookieParser());
 app.use(cors());
 
 mongoose.set('strictQuery', false);
-mongoose.connect('mongodb://127.0.0.1:27017/mern', {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
