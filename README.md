@@ -13,19 +13,17 @@
 ## Set up
 
 1. Clone the repository
-2. install dependencies from `client/` and `server/`
+2. install dependencies from the root, client, and server.
     ```sh
-    $ cd client
-    $ npm install
-
-    $ cd ../server
-    $ npm install
+    npm install
+    npm install --prefix client
+    npm install --prefix server
     ```
 3. create `.env` in `server` and add your mongo db URI.
     ```env
-    MONGODB_URI = '';
+    MONGODB_URI = ''
     ```
 4. Run the server from the root
     ```sh
-    $ npm run dev
+    npm run dev
     ```
