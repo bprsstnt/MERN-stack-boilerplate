@@ -1,7 +1,7 @@
 # MERN Stack Boilerplate
 
 ## Frontend
-- React.js
+- React.js (Creacte React App)
 - Redux
 - Ant Design
 
